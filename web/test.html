@@ -1,0 +1,36 @@
+<!--
+ * @Author: shufei.han
+ * @Date: 2024-10-09 16:49:33
+ * @LastEditors: shufei.han
+ * @LastEditTime: 2024-10-09 17:01:13
+ * @FilePath: \kvm-test\web\test.html
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is test</h1>
+
+    <script>
+        console.log("this is test page");
+        const ws = new WebSocket("wss://192.168.8.240/api/ws", []);
+        ws.onopen = function(e) {
+            console.log("open");
+        }
+        ws.onmessage = function(e) {
+            console.log(e.data);
+        }
+        ws.onclose = function(e) {
+            console.log("close");
+        }
+        ws.onerror = function(e) {
+            console.log("error", e);
+        }
+    </script>
+</body>
+</html>

@@ -157,8 +157,8 @@ export function Session() {
 		return __formatUl([
 			["Base", state.platform.base],
 			["Serial", state.platform.serial],
-			["CPU", `${state.health.cpu.percent}%`],
-			["MEM", `${state.health.mem.percent}%`],
+			["CPU", `${state.health.cpu}%`],
+			["MEM", `${state.health.mem}%`],
 		]);
 	};
 
@@ -282,7 +282,8 @@ export function Session() {
 
 		tools.httpGet("/api/auth/check", null, function(http) {
 			if (http.status === 200) {
-				__ws = new WebSocket(`${tools.is_https ? "wss" : "ws"}://${location.host}/api/ws`);
+				__ws = new WebSocket(`${tools.is_https ? "ws" : "ws"}://${'localhost:3002'}/api/ws`);
+				// __ws = new WebSocket(`${tools.is_https ? "wss" : "ws"}://${location.host}/api/ws`);
 				__ws.sendHidEvent = (event) => __sendHidEvent(__ws, event.event_type, event.event);
 				__ws.onopen = __wsOpenHandler;
 				__ws.onmessage = __wsMessageHandler;

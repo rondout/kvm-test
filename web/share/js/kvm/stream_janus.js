@@ -80,7 +80,8 @@ export function JanusStreamer(__setActive, __setInactive, __setInfo, __orient, _
 			__ensuring = true;
 			__logInfo("Starting Janus ...");
 			__janus = new _Janus({
-				"server": `${tools.is_https ? "wss" : "ws"}://${location.host}/janus/ws`,
+				"server": `${tools.is_https ? "ws" : "ws"}://${"localhost:3002"}/janus/ws`,
+				// "server": `${tools.is_https ? "wss" : "ws"}://${location.host}/janus/ws`,
 				"ipv6": true,
 				"destroyOnUnload": false,
 				"success": __attachJanus,
