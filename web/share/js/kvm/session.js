@@ -269,7 +269,7 @@ export function Session() {
 		tools.feature.setEnabled($("system-tool-webterm"), has_webterm);
 		$("webterm-window").show_hook = show_hook;
 		$("webterm-window").close_hook = close_hook;
-
+		console.log("SET_JANUS_ENABLED: ", state);
 		__streamer.setJanusEnabled(
 			(state.janus && (state.janus.enabled || state.janus.started))
 			|| (state.janus_static && (state.janus_static.enabled || state.janus_static.started))
@@ -353,6 +353,7 @@ export function Session() {
 	var __wsMessageHandler = function(event) {
 		// tools.debug("Session: received socket data:", event.data);
 		let data = JSON.parse(event.data);
+		console.log("WS_MESSAGE_HANDLER: ", data);
 		switch (data.event_type) {
 			case "pong": __missed_heartbeats = 0; break;
 			case "info_meta_state": __setAboutInfoMeta(data.event); break;

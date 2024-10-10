@@ -134,6 +134,7 @@ export function Streamer() {
 			tools.hidden.setVisible($("stream-message-no-webrtc"), enabled && !has_webrtc);
 			tools.hidden.setVisible($("stream-message-no-h264"), enabled && !has_h264);
 			__janus_enabled = (enabled && has_webrtc && imported); // Don't check has_h264 for sure
+			console.log("SET-STREAM-ENABLED: ", __janus_enabled, {enabled, has_webrtc, imported})
 			tools.feature.setEnabled($("stream-mode"), __janus_enabled);
 			tools.info(
 				`Stream: Janus WebRTC state: enabled=${enabled},`

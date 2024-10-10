@@ -11,7 +11,7 @@ app.use(express.static('web'));
 
 // API 代理
 app.use('/', createProxyMiddleware({
-    target: 'https://192.168.8.240/',
+    target: 'https://www.icmb.top:16014/',
     secure: false, // 如果目标服务器没有有效的SSL证书，可以禁用SSL验证
     changeOrigin: true,
     logLevel: 'debug' // 启用详细日志
@@ -90,22 +90,22 @@ wssJanusInfo.on('connection', (ws, request) => {
 });
 const initWs = (addr = '/api/ws') => {
 
-    const ws = new WebSocket("wss://192.168.8.240" + addr, {
+    const ws = new WebSocket("wss://www.icmb.top:16014" + addr, {
         pingInterval: null, // 禁用心跳间隔
         pingTimeout: null, // 禁用心跳超时
         secureOptions: 0,
         headers: {
-            'Host': '192.168.8.240',
+            'Host': 'www.icmb.top:16014',
             'Connection': 'Upgrade',
             'Pragma': 'no-cache',
             'Cache-Control': 'no-cache',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
             'Upgrade': 'websocket',
-            'Origin': 'https://192.168.8.240',
+            'Origin': 'https://www.icmb.top:16014',
             'Sec-WebSocket-Version': '13',
             'Accept-Encoding': 'gzip, deflate, br, zstd',
             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',
-            'Cookie': 'auth_token=f5846b381e12f0ca4b106fecf9c8a7b4c7c1bf38707ddbda38105b689f0a1dd1',
+            'Cookie': 'auth_token=94c97801844cfa8ac5efd5398fe0e8ee4fe1e0f0c7d68622dbaefc48ffc6e1a2',
             'Sec-WebSocket-Key': '2EbPjQuQx0biRy8bglX87g==',
             'Sec-WebSocket-Extensions': 'permessage-deflate; client_max_window_bits',
         },
@@ -128,18 +128,18 @@ const initWs = (addr = '/api/ws') => {
 }
 
 const initJanusWs = (addr = '/janus/ws') => {
-    const ws = new WebSocket("wss://192.168.8.240" + addr, {
+    const ws = new WebSocket("wss://www.icmb.top:16014" + addr, {
         pingInterval: null, // 禁用心跳间隔
         pingTimeout: null, // 禁用心跳超时
         secureOptions: 0,
         headers: {
-            'Host': '192.168.8.240',
+            'Host': 'www.icmb.top:16014',
             'Connection': 'Upgrade',
             'Pragma': 'no-cache',
             'Cache-Control': 'no-cache',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
             'Upgrade': 'websocket',
-            'Origin': 'https://192.168.8.240',
+            'Origin': 'https://www.icmb.top:16014',
             'Sec-WebSocket-Version': '13',
             'Accept-Encoding': 'gzip, deflate, br, zstd',
             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',
