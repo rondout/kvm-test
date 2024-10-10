@@ -353,7 +353,6 @@ export function Session() {
 	var __wsMessageHandler = function(event) {
 		// tools.debug("Session: received socket data:", event.data);
 		let data = JSON.parse(event.data);
-		console.log("WS_MESSAGE_HANDLER: ", data);
 		switch (data.event_type) {
 			case "pong": __missed_heartbeats = 0; break;
 			case "info_meta_state": __setAboutInfoMeta(data.event); break;
