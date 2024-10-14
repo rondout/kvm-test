@@ -269,7 +269,7 @@ export function Session() {
 		tools.feature.setEnabled($("system-tool-webterm"), has_webterm);
 		$("webterm-window").show_hook = show_hook;
 		$("webterm-window").close_hook = close_hook;
-
+		console.log("SET_JANUS_ENABLED: ", state);
 		__streamer.setJanusEnabled(
 			(state.janus && (state.janus.enabled || state.janus.started))
 			|| (state.janus_static && (state.janus_static.enabled || state.janus_static.started))
@@ -408,7 +408,7 @@ export function Session() {
 	var __pingServer = function() {
 		try {
 			__missed_heartbeats += 1;
-			if (__missed_heartbeats >= 15) {
+			if (__missed_heartbeats >= 105) {
 				throw new Error("Too many missed heartbeats");
 			}
 			__ws.send("{\"event_type\": \"ping\", \"event\": {}}");

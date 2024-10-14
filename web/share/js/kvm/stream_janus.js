@@ -429,6 +429,7 @@ export function JanusStreamer(__setActive, __setInactive, __setInfo, __orient, _
 JanusStreamer.ensure_janus = function(callback) {
 	if (_Janus === null) {
 		import("./janus.js").then((module) => {
+			console.log("THENTHENTHENTHENTHENTHENTHENTHENTHENTHENTHEN", module);
 			module.Janus.init({
 				"debug": "all",
 				"callback": function() {

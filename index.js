@@ -27,7 +27,8 @@ const agentJanus = new https.Agent({
 
 let wsApiClient;
 let wsJanusClient;
-let protocol
+let wsApiServer;
+let wsJanusServer;
 
 
 const wsServer = createServer()
@@ -57,7 +58,7 @@ wssApiInfo.on('connection', (ws, request) => {
     wsApiClient = ws;
 
     ws.on('message', (message) => {
-        console.log('Received message on /api/ws:');
+        // console.log('Received message on /api/ws:', message.toString());
         // 处理消息
     });
 
@@ -75,8 +76,8 @@ wssJanusInfo.on('connection', (ws, request) => {
     wsJanusClient = ws;
 
     ws.on('message', (message) => {
-        console.log('Received message on /janus/ws:');
-        // 处理消息
+        console.log("收到janus客户端消息： ", message.toString());
+        wsJanusServer.send(message, { binary: false });
     });
 
     ws.on('close', () => {
@@ -86,11 +87,11 @@ wssJanusInfo.on('connection', (ws, request) => {
         console.log("janus ERROR");
     })
     // 发送欢迎消息
-    initJanusWs('/janus/ws', wsJanusClient);
+    // initJanusWs();
 });
-const initWs = (addr = '/api/ws') => {
+const initWs = () => {
 
-    const ws = new WebSocket("wss://192.168.8.240" + addr, {
+    const ws = new WebSocket("wss://192.168.8.240/api/ws", {
         pingInterval: null, // 禁用心跳间隔
         pingTimeout: null, // 禁用心跳超时
         secureOptions: 0,
@@ -111,12 +112,13 @@ const initWs = (addr = '/api/ws') => {
         },
         agent: agent
     })
+    wsApiServer = ws;
 
     ws.on('open', function open() {
-        console.log('WebSocket connected');
+        console.log('api/ws WebSocket connected');
     });
     ws.on('message', function incoming(data) {
-        console.log("收到janus消息");
+        // console.log("收到api/ws消息");
         wsApiClient.send(data, { binary: false });
     });
     ws.on('close', function close() {
@@ -127,11 +129,12 @@ const initWs = (addr = '/api/ws') => {
     });
 }
 
-const initJanusWs = (addr = '/janus/ws') => {
-    const ws = new WebSocket("wss://192.168.8.240" + addr, {
+const initJanusWs = () => {
+    const ws = new WebSocket("wss://192.168.8.240/janus/ws","janus-protocol", {
         pingInterval: null, // 禁用心跳间隔
         pingTimeout: null, // 禁用心跳超时
         secureOptions: 0,
+        protocol: 'janus-protocol',
         headers: {
             'Host': '192.168.8.240',
             'Connection': 'Upgrade',
@@ -143,18 +146,21 @@ const initJanusWs = (addr = '/janus/ws') => {
             'Sec-WebSocket-Version': '13',
             'Accept-Encoding': 'gzip, deflate, br, zstd',
             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',
-            'Cookie': 'auth_token=f5846b381e12f0ca4b106fecf9c8a7b4c7c1bf38707ddbda38105b689f0a1dd1',
+            'Cookie': 'auth_token=eab35f76792af07b0d38b5c37fe56d35b7f0db00251b1eb7b51f1e1933e17cb5',
             'Sec-WebSocket-Key': '+MmrPJWjehr4zF/+vkvGGw==',
             'Sec-WebSocket-Extensions': 'permessage-deflate; client_max_window_bits',
             'Sec-WebSocket-Protocol': 'janus-protocol',
         },
         agent: agentJanus
     })
+    wsJanusServer = ws;
 
     ws.on('open', function open() {
-        console.log('WebSocket connected');
+        console.log('JANUS-WEBSOCKET connected');
+        wsJanusClient?.send('欢迎使用janus/ws', { binary: false, protocol: 'janus-protocol' });
     });
     ws.on('message', function incoming(data) {
+        console.log("收到janus/ws消息");
         wsJanusClient.send(data, { binary: false, protocol: 'janus-protocol' });
     });
     ws.on('close', function close() {
@@ -165,15 +171,7 @@ const initJanusWs = (addr = '/janus/ws') => {
     });
 }
 
-// WebSocket 代理
-// const wss = new WebSocketServer({ port: 3002 });
-
-// wss.on('connection', function connection(ws) {
-//     wsClient = ws;
-//     console.log(ws);
-//     initWs();
-// });
-
+initJanusWs();
 
 // 启动服务器
 const PORT = 3001;
