@@ -92,6 +92,7 @@ function __WindowManager() {
 				el_maximize_button.title = "Maximize window";
 				tools.el.setOnClick(el_maximize_button, function() {
 					__maximizeWindow(el_window);
+					console.log('__activateLastWindow(')
 					__activateLastWindow(el_window);
 				});
 			}
@@ -103,6 +104,7 @@ function __WindowManager() {
 					el_window.style.width = "";
 					el_window.style.height = "";
 					__centerWindow(el_window);
+					console.log('__activateLastWindow(')
 					__activateLastWindow(el_window);
 				});
 			}
@@ -121,6 +123,7 @@ function __WindowManager() {
 				tools.el.setOnClick(el_full_screen_button, function() {
 					__fullScreenWindow(el_window);
 					el_window.focus(el_window); // Почему-то теряется фокус
+					console.log('__activateLastWindow(')
 					__activateLastWindow(el_window);
 				});
 			}
@@ -268,6 +271,7 @@ function __WindowManager() {
 					if (el_active_menu && el_active_menu.style.visibility === "visible") {
 						el_active_menu.focus();
 					} else {
+						console.log('__activateLastWindow(')
 						__activateLastWindow(el_modal);
 					}
 					resolve(retval);
@@ -298,6 +302,8 @@ function __WindowManager() {
 	};
 
 	self.showWindow = function(el_window, activate=true, center=false) {
+		console.log('SHOW_WINDOW');
+		
 		let showed = false;
 		if (!self.isWindowVisible(el_window)) {
 			center = true;
@@ -331,11 +337,13 @@ function __WindowManager() {
 
 	self.closeWindow = function(el_window) {
 		__closeWindow(el_window);
+		console.log('__activateLastWindow(')
 		__activateLastWindow(el_window);
 	};
 
 	self.toggleFullTabWindow = function(el_window, enabled) {
 		el_window.classList.toggle("window-full-tab", enabled);
+		console.log('__activateLastWindow(')
 		__activateLastWindow(el_window);
 		let el_navbar = $("navbar");
 		if (el_navbar) {
@@ -380,12 +388,14 @@ function __WindowManager() {
 
 		if (all_hidden) {
 			document.onkeyup = null;
+			console.log('__activateLastWindow(')
 			__activateLastWindow();
 		} else {
 			document.onkeyup = function(event) {
 				if (event.code === "Escape") {
 					event.preventDefault();
 					__closeAllMenues();
+					console.log('__activateLastWindow(')
 					__activateLastWindow();
 				}
 			};
@@ -415,6 +425,8 @@ function __WindowManager() {
 	};
 
 	var __globalMouseButtonHandler = function(event) {
+		console.log('__GLOBALMOUSEBUTTONHANDLER');
+		
 		if (
 			event.target.closest
 			&& !event.target.closest(".menu-button")
@@ -428,6 +440,7 @@ function __WindowManager() {
 				}
 			}
 			__closeAllMenues();
+			console.log('__activateLastWindow(')
 			__activateLastWindow();
 		}
 	};
@@ -489,6 +502,8 @@ function __WindowManager() {
 	};
 
 	var __activateLastWindow = function(el_except_window=null) {
+		console.log('__ACTIVATE_LAST_WINDOW');
+		
 		let el_last_window = null;
 
 		if (document.activeElement) {
@@ -540,6 +555,7 @@ function __WindowManager() {
 			}
 
 			if (el_window !== el_window_contains_focus) {
+				console.log("FOCUS");
 				el_to_focus.focus();
 				tools.debug("UI: Focused window:", el_window);
 			}
