@@ -1,0 +1,1 @@
+import{d as a,o,c as s,a as e,b as t,u as c,R as n,_ as r}from"./index-DVrPov3n.js";import{H as _}from"./headerBox-HaaRKpMG.js";const d={class:"layout"},i={class:"layout-content"},f=a({__name:"mainPage",setup(m){return(p,u)=>(o(),s("div",d,[e(_),t("div",i,[e(c(n))])]))}}),B=r(f,[["__scopeId","data-v-f661aff2"]]);export{B as default};

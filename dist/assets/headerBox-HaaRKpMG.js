@@ -1,0 +1,1 @@
+import{d as o,o as s,c as t,b as a,u as r,bi as c,_ as n}from"./index-DVrPov3n.js";const _="/assets/logoText-DuB6zPk6.png",d={class:"header-box flex-btw"},l=["src"],i=o({__name:"headerBox",setup(p){return(e,u)=>(s(),t("div",d,[a("img",{src:r(_),alt:"",height:"38"},null,8,l),c(e.$slots,"default",{},void 0,!0)]))}}),x=n(i,[["__scopeId","data-v-b88ca10f"]]);export{x as H};

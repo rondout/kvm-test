@@ -462,3 +462,5 @@ export var tools = new function() {
 export var $ = (id) => document.getElementById(id);
 export var $$ = (cls) => [].slice.call(document.getElementsByClassName(cls));
 export var $$$ = (selector) => document.querySelectorAll(selector);
+
+window.$ = $
