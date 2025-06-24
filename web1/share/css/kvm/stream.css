@@ -107,5 +107,5 @@ div#stream-window.window-active:fullscreen div#stream-box div#stream-fullscreen-
 }
 
 div#stream-mouse-buttons {
-	display: none;
+	/* display: none; */
 }

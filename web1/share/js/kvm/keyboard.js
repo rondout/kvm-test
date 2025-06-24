@@ -20,8 +20,8 @@
 *****************************************************************************/
 
 
-import {tools, $, $$$} from "../tools.js";
-import {Keypad} from "../keypad.js";
+import { tools, $, $$$ } from "../tools.js";
+import { Keypad } from "../keypad.js";
 
 
 export function Keyboard(__recordWsEvent) {
@@ -34,7 +34,7 @@ export function Keyboard(__recordWsEvent) {
 
 	var __keypad = null;
 
-	var __init__ = function() {
+	var __init__ = function () {
 		__keypad = new Keypad("div#keyboard-window", __sendKey, true);
 
 		$("hid-keyboard-led").title = "Keyboard free";
@@ -57,7 +57,7 @@ export function Keyboard(__recordWsEvent) {
 
 	/************************************************************************/
 
-	self.setSocket = function(ws) {
+	self.setSocket = function (ws) {
 		if (ws !== __ws) {
 			self.releaseAll();
 			__ws = ws;
@@ -65,7 +65,7 @@ export function Keyboard(__recordWsEvent) {
 		__updateOnlineLeds();
 	};
 
-	self.setState = function(state, hid_online, hid_busy) {
+	self.setState = function (state, hid_online, hid_busy) {
 		if (!hid_online) {
 			__online = null;
 		} else {
@@ -86,15 +86,15 @@ export function Keyboard(__recordWsEvent) {
 		}
 	};
 
-	self.releaseAll = function() {
+	self.releaseAll = function () {
 		__keypad.releaseAll();
 	};
 
-	self.emit = function(code, state) {
+	self.emit = function (code, state) {
 		__keypad.emitByCode(code, state);
 	};
 
-	var __updateOnlineLeds = function() {
+	var __updateOnlineLeds = function () {
 		let is_captured = (
 			$("stream-window").classList.contains("window-active")
 			|| $("keyboard-window").classList.contains("window-active")
@@ -124,12 +124,16 @@ export function Keyboard(__recordWsEvent) {
 		$("hid-keyboard-led").title = title;
 	};
 
-	var __keyboardHandler = function(event, state) {
+	var __keyboardHandler = function (event, state) {
+		if (!state) {
+			console.log("KEY-UPPPPPPP", event.code);
+
+		}
 		event.preventDefault();
 		__keypad.emitByKeyEvent(event, state);
 	};
 
-	var __sendKey = function(code, state) {
+	var __sendKey = function (code, state) {
 		tools.debug("Keyboard: key", (state ? "pressed:" : "released:"), code);
 		if ($("hid-keyboard-swap-cc-switch").checked) {
 			if (code === "ControlLeft") {
@@ -140,7 +144,7 @@ export function Keyboard(__recordWsEvent) {
 		}
 		let event = {
 			"event_type": "key",
-			"event": {"key": code, "state": state},
+			"event": { "key": code, "state": state },
 		};
 		if (__ws && !$("hid-mute-switch").checked) {
 			__ws.sendHidEvent(event);

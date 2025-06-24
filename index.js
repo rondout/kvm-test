@@ -7,7 +7,7 @@ const { createServer } = require('http');
 const app = express();
 
 // 静态文件服务
-app.use(express.static('web1'));
+app.use(express.static('web2'));
 
 // API 代理
 app.use('/', createProxyMiddleware({
@@ -48,7 +48,7 @@ app.use('/', createProxyMiddleware({
 // wsServer.on('upgrade', (request, socket, head) => {
 //     const pathname = request.url;
 //     console.log(pathname);
-    
+
 
 //     if (pathname === '/api/ws') {
 //         wssApiInfo.handleUpgrade(request, socket, head, (ws) => {

@@ -23,8 +23,8 @@
 "use strict";
 
 
-import {tools, $} from "../tools.js";
-import {Keypad} from "../keypad.js";
+import { tools, $ } from "../tools.js";
+import { Keypad } from "../keypad.js";
 
 
 export function Mouse(__getGeometry, __recordWsEvent) {
@@ -39,17 +39,17 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 	var __keypad = null;
 
 	var __timer = null;
-	var __planned_pos = {"x": 0, "y": 0};
-	var __sent_pos = {"x": 0, "y": 0};
+	var __planned_pos = { "x": 0, "y": 0 };
+	var __sent_pos = { "x": 0, "y": 0 };
 	var __relative_deltas = [];
 	var __relative_touch_pos = null;
 	var __relative_sens = 1.0;
 	var __scroll_rate = 5;
-	var __scroll_delta = {"x": 0, "y": 0};
+	var __scroll_delta = { "x": 0, "y": 0 };
 
 	var __stream_hovered = false;
 
-	var __init__ = function() {
+	var __init__ = function () {
 		__keypad = new Keypad("div#stream-mouse-buttons", __sendButton, false);
 
 		$("hid-mouse-led").title = "Mouse free";
@@ -82,7 +82,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 
 	/************************************************************************/
 
-	self.setSocket = function(ws) {
+	self.setSocket = function (ws) {
 		__ws = ws;
 		if (!__absolute && __isRelativeCaptured()) {
 			document.exitPointerLock();
@@ -90,7 +90,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		__updateOnlineLeds();
 	};
 
-	self.setState = function(state, hid_online, hid_busy) {
+	self.setState = function (state, hid_online, hid_busy) {
 		if (!hid_online) {
 			__online = null;
 		} else {
@@ -107,11 +107,11 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		__updateOnlineLeds();
 	};
 
-	self.releaseAll = function() {
+	self.releaseAll = function () {
 		__keypad.releaseAll();
 	};
 
-	var __updateRate = function(value) {
+	var __updateRate = function (value) {
 		$("hid-mouse-rate-value").innerHTML = value + " ms";
 		tools.storage.set("hid.mouse.rate", value);
 		if (__timer) {
@@ -120,26 +120,26 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		__timer = setInterval(__sendPlannedMove, value);
 	};
 
-	var __updateScrollRate = function(value) {
+	var __updateScrollRate = function (value) {
 		$("hid-mouse-scroll-value").innerHTML = value;
 		tools.storage.set("hid.mouse.scroll_rate", value);
 		__scroll_rate = value;
 	};
 
-	var __updateRelativeSens = function(value) {
+	var __updateRelativeSens = function (value) {
 		$("hid-mouse-sens-value").innerHTML = value.toFixed(1);
 		tools.storage.set("hid.mouse.sens", value);
 		__relative_sens = value;
 	};
 
-	var __streamHoveredHandler = function(hovered) {
+	var __streamHoveredHandler = function (hovered) {
 		if (__absolute) {
 			__stream_hovered = hovered;
 			__updateOnlineLeds();
 		}
 	};
 
-	var __updateOnlineLeds = function() {
+	var __updateOnlineLeds = function () {
 		let is_captured;
 		if (__absolute) {
 			is_captured = (__stream_hovered || tools.browser.is_mobile);
@@ -180,16 +180,16 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		}
 	};
 
-	var __isRelativeCaptured = function() {
+	var __isRelativeCaptured = function () {
 		return (document.pointerLockElement === $("stream-box"));
 	};
 
-	var __relativeCapturedHandler = function() {
+	var __relativeCapturedHandler = function () {
 		tools.info("Relative mouse", (__isRelativeCaptured() ? "captured" : "released"), "by pointer lock");
 		__updateOnlineLeds();
 	};
 
-	var __streamButtonHandler = function(event, state) {
+	var __streamButtonHandler = function (event, state) {
 		// https://www.w3schools.com/jsref/event_button.asp
 		event.preventDefault();
 		if (__absolute || __isRelativeCaptured()) {
@@ -205,7 +205,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		}
 	};
 
-	var __streamTouchStartHandler = function(event) {
+	var __streamTouchStartHandler = function (event) {
 		event.preventDefault();
 		if (event.touches.length === 1) {
 			if (__absolute) {
@@ -217,7 +217,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		}
 	};
 
-	var __streamTouchMoveHandler = function(event) {
+	var __streamTouchMoveHandler = function (event) {
 		event.preventDefault();
 		if (event.touches.length === 1) {
 			if (__absolute) {
@@ -235,12 +235,12 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		}
 	};
 
-	var __streamTouchEndHandler = function(event) {
+	var __streamTouchEndHandler = function (event) {
 		event.preventDefault();
 		__sendPlannedMove();
 	};
 
-	var __getTouchPosition = function(event, index) {
+	var __getTouchPosition = function (event, index) {
 		if (event.touches[index].target && event.touches[index].target.getBoundingClientRect) {
 			let rect = event.touches[index].target.getBoundingClientRect();
 			return {
@@ -251,7 +251,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		return null;
 	};
 
-	var __streamMoveHandler = function(event) {
+	var __streamMoveHandler = function (event) {
 		if (__absolute) {
 			let rect = event.target.getBoundingClientRect();
 			__planned_pos = {
@@ -266,7 +266,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		}
 	};
 
-	var __streamScrollHandler = function(event) {
+	var __streamScrollHandler = function (event) {
 		// https://learn.javascript.ru/mousewheel
 		// https://stackoverflow.com/a/24595588
 
@@ -276,7 +276,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 			return;
 		}
 
-		let delta = {"x": 0, "y": 0};
+		let delta = { "x": 0, "y": 0 };
 		if ($("hid-mouse-cumulative-scrolling-switch").checked) {
 			let factor = (tools.browser.is_mac ? 5 : 1);
 
@@ -303,7 +303,7 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 		__sendScroll(delta);
 	};
 
-	var __sendOrPlanRelativeMove = function(delta) {
+	var __sendOrPlanRelativeMove = function (delta) {
 		delta = {
 			"x": Math.min(Math.max(-127, Math.floor(delta.x * __relative_sens)), 127),
 			"y": Math.min(Math.max(-127, Math.floor(delta.y * __relative_sens)), 127),
@@ -313,12 +313,12 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 				__relative_deltas.push(delta);
 			} else {
 				tools.debug("Mouse: relative:", delta);
-				__sendEvent("mouse_relative", {"delta": delta});
+				__sendEvent("mouse_relative", { "delta": delta });
 			}
 		}
 	};
 
-	var __sendScroll = function(delta) {
+	var __sendScroll = function (delta) {
 		if (delta.x || delta.y) {
 			if ($("hid-mouse-reverse-scrolling-switch").checked) {
 				delta.y *= -1;
@@ -327,11 +327,11 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 				delta.x *= -1;
 			}
 			tools.debug("Mouse: scrolled:", delta);
-			__sendEvent("mouse_wheel", {"delta": delta});
+			__sendEvent("mouse_wheel", { "delta": delta });
 		}
 	};
 
-	var __sendPlannedMove = function() {
+	var __sendPlannedMove = function () {
 		if (__absolute) {
 			let pos = __planned_pos;
 			if (pos.x !== __sent_pos.x || pos.y !== __sent_pos.y) {
@@ -341,24 +341,24 @@ export function Mouse(__getGeometry, __recordWsEvent) {
 					"y": tools.remap(pos.y, geo.y, geo.height, -32768, 32767),
 				};
 				tools.debug("Mouse: moved:", to);
-				__sendEvent("mouse_move", {"to": to});
+				__sendEvent("mouse_move", { "to": to });
 				__sent_pos = pos;
 			}
 		} else if (__relative_deltas.length) {
 			tools.debug("Mouse: relative:", __relative_deltas);
-			__sendEvent("mouse_relative", {"delta": __relative_deltas, "squash": true});
+			__sendEvent("mouse_relative", { "delta": __relative_deltas, "squash": true });
 			__relative_deltas = [];
 		}
 	};
 
-	var __sendButton = function(button, state) {
+	var __sendButton = function (button, state) {
 		tools.debug("Mouse: button", (state ? "pressed:" : "released:"), button);
 		__sendPlannedMove();
-		__sendEvent("mouse_button", {"button": button, "state": state});
+		__sendEvent("mouse_button", { "button": button, "state": state });
 	};
 
-	var __sendEvent = function(event_type, event) {
-		event = {"event_type": event_type, "event": event};
+	var __sendEvent = function (event_type, event) {
+		event = { "event_type": event_type, "event": event };
 		if (__ws && !$("hid-mute-switch").checked) {
 			__ws.sendHidEvent(event);
 		}

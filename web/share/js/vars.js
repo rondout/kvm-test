@@ -20,9 +20,12 @@
 *****************************************************************************/
 
 
-div#keyboard-desktop {
-	display: block;
-}
-div#keyboard-mobile {
-	/* display: none; */
+"use strict";
+
+
+export var ROOT_PREFIX = "./";
+
+
+export function setRootPrefix(prefix) {
+	ROOT_PREFIX = prefix;
 }
