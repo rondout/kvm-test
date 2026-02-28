@@ -405,7 +405,7 @@ export function JanusStreamer(__setActive, __setInactive, __setInfo, __organizeH
 					"request": "watch", "params": {
 						"orientation": __orient,
 						"audio": __allow_audio,
-						// "mic": __allow_mic,
+						"mic": __allow_mic,
 					}
 				}
 			});

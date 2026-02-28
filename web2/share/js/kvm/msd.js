@@ -23,9 +23,9 @@
 "use strict";
 
 
-import { ROOT_PREFIX } from "../vars.js";
-import { tools, $ } from "../tools.js";
-import { wm } from "../wm.js";
+import {ROOT_PREFIX} from "../vars.js";
+import {tools, $} from "../tools.js";
+import {wm} from "../wm.js";
 
 
 export function Msd() {
@@ -36,7 +36,7 @@ export function Msd() {
 	var __state = null;
 	var __http = null;
 
-	var __init__ = function () {
+	var __init__ = function() {
 		$("msd-led").title = "Unknown state";
 
 		tools.selector.addOption($("msd-image-selector"), "\u2500 Not selected \u2500", "");
@@ -64,10 +64,10 @@ export function Msd() {
 
 	/************************************************************************/
 
-	self.setState = function (state) {
+	self.setState = function(state) {
 		if (state) {
 			if (!__state) {
-				__state = { "storage": {} };
+				__state = {"storage": {}};
 			}
 			if (state.enabled !== undefined) {
 				__state.enabled = state.enabled;
@@ -109,11 +109,11 @@ export function Msd() {
 		__refreshControls();
 	};
 
-	var __refreshControls = function () {
+	var __refreshControls = function() {
 		__updateControls(__state && (__state.online !== undefined) ? __state : null);
 	};
 
-	var __updateControls = function (state) {
+	var __updateControls = function(state) {
 		let o = (state && state.online);
 		let d = (state ? state.drive : null);
 		let s = (state ? state.storage : null);
@@ -177,7 +177,7 @@ export function Msd() {
 		$("msd-status").innerText = $("msd-led").title = msg;
 	};
 
-	var __updateUploading = function (uploading) {
+	var __updateUploading = function(uploading) {
 		$("msd-uploading-name").innerText = (uploading ? uploading.name : "");
 		$("msd-uploading-size").innerText = (uploading ? tools.formatSize(uploading.size) : "");
 		if (uploading) {
@@ -185,13 +185,10 @@ export function Msd() {
 		}
 	};
 
-	var __updateParts = function () {
-		const parts = { "": { free: 5858197504, size: 6155337728, writable: true}, "aa": { free: 3258197504, size: 4655337728, writable: true} }
+	var __updateParts = function(parts) {
 		let names = Object.keys(parts).sort();
 		{
 			let writable = names.filter(name => (name === "" || parts[name].writable));
-			console.log("*************", writable, parts);
-
 			let writable_json = JSON.stringify(writable);
 			let el = $("msd-new-part-selector");
 			if (el.__writable_json !== writable_json) {
@@ -223,15 +220,15 @@ export function Msd() {
 			let part = parts[name];
 			let title = (
 				name === ""
-					? `${names.length === 1 ? "Storage: %s" : "Internal storage: %s"}` // eslint-disable-line
-					: `Storage [${name}${part.writable ? "]" : ", read-only]"}: %s` // eslint-disable-line
+				? `${names.length === 1 ? "Storage: %s" : "Internal storage: %s"}` // eslint-disable-line
+				: `Storage [${name}${part.writable ? "]" : ", read-only]"}: %s` // eslint-disable-line
 			);
 			let id = `__msd-storage-${tools.makeTextId(name)}-progress`;
 			tools.progress.setSizeOf($(id), title, part.size, part.free);
 		}
 	};
 
-	var __updateImageSelector = function (drive, images) {
+	var __updateImageSelector = function(drive, images) {
 		let sel = "";
 		let el = $("msd-image-selector");
 		el.options.length = 1;
@@ -251,7 +248,7 @@ export function Msd() {
 		el.value = sel;
 	};
 
-	var __makeImageSelectorInfo = function (image) {
+	var __makeImageSelectorInfo = function(image) {
 		let text = `\xA0\xA0\xA0\xA0\xA0\u2570 ${tools.formatSize(image.size)}`;
 		if (!image.complete) {
 			text += ", broken";
@@ -265,23 +262,23 @@ export function Msd() {
 		return `${text} \u2500 ${ts}`;
 	};
 
-	var __selectImage = function () {
+	var __selectImage = function() {
 		tools.el.setEnabled($("msd-image-selector"), false);
 		tools.el.setEnabled($("msd-download-button"), false);
 		tools.el.setEnabled($("msd-remove-button"), false);
 		__sendParam("image", $("msd-image-selector").value);
 	};
 
-	var __clickDownloadButton = function () {
+	var __clickDownloadButton = function() {
 		let e_image = encodeURIComponent($("msd-image-selector").value);
 		tools.windowOpen(`api/msd/read?image=${e_image}`);
 	};
 
-	var __clickRemoveButton = function () {
+	var __clickRemoveButton = function() {
 		let name = $("msd-image-selector").value;
-		wm.confirm("Are you sure you want to remove this image?", name).then(function (ok) {
+		wm.confirm("Are you sure you want to remove this image?", name).then(function(ok) {
 			if (ok) {
-				tools.httpPost("api/msd/remove", { "image": name }, function (http) {
+				tools.httpPost("api/msd/remove", {"image": name}, function(http) {
 					if (http.status !== 200) {
 						wm.error("Can't remove image", http.responseText);
 					}
@@ -290,8 +287,8 @@ export function Msd() {
 		});
 	};
 
-	var __sendParam = function (name, value) {
-		tools.httpPost("api/msd/set_params", { [name]: value }, function (http) {
+	var __sendParam = function(name, value) {
+		tools.httpPost("api/msd/set_params", {[name]: value}, function(http) {
 			if (http.status !== 200) {
 				wm.error("Can't configure Mass Storage", http.responseText);
 			}
@@ -299,7 +296,7 @@ export function Msd() {
 		});
 	};
 
-	var __clickUploadNewButton = function () {
+	var __clickUploadNewButton = function() {
 		let file = tools.input.getFile($("msd-new-file"));
 		__http = new XMLHttpRequest();
 		let e_prefix = encodeURIComponent($("msd-new-part-selector").value);
@@ -316,7 +313,7 @@ export function Msd() {
 		__refreshControls();
 	};
 
-	var __uploadStateChange = function () {
+	var __uploadStateChange = function() {
 		if (__http.readyState !== 4) {
 			return;
 		}
@@ -355,7 +352,7 @@ export function Msd() {
 		__refreshControls();
 	};
 
-	var __clickAbortNewButton = function () {
+	var __clickAbortNewButton = function() {
 		__http.onreadystatechange = null;
 		__http.abort();
 		__http = null;
@@ -363,8 +360,8 @@ export function Msd() {
 		tools.hidden.setVisible($("msd-new-sub"), true);
 	};
 
-	var __clickConnectButton = function (connected) {
-		tools.httpPost("api/msd/set_connected", { "connected": connected }, function (http) {
+	var __clickConnectButton = function(connected) {
+		tools.httpPost("api/msd/set_connected", {"connected": connected}, function(http) {
 			if (http.status !== 200) {
 				wm.error("Can't switch Mass Storage", http.responseText);
 			}
@@ -374,10 +371,10 @@ export function Msd() {
 		tools.el.setEnabled($(`msd-${connected ? "connect" : "disconnect"}-button`), false);
 	};
 
-	var __clickResetButton = function () {
-		wm.confirm("Are you sure you want to reset Mass Storage?").then(function (ok) {
+	var __clickResetButton = function() {
+		wm.confirm("Are you sure you want to reset Mass Storage?").then(function(ok) {
 			if (ok) {
-				tools.httpPost("api/msd/reset", null, function (http) {
+				tools.httpPost("api/msd/reset", null, function(http) {
 					if (http.status !== 200) {
 						wm.error("Mass Storage reset error", http.responseText);
 					}
@@ -386,7 +383,7 @@ export function Msd() {
 		});
 	};
 
-	var __toggleSelectSub = function () {
+	var __toggleSelectSub = function() {
 		let el_sub = $("msd-new-sub");
 		let visible = tools.hidden.isVisible(el_sub);
 		tools.hidden.setVisible(el_sub, !visible);
@@ -397,7 +394,7 @@ export function Msd() {
 		__refreshControls();
 	};
 
-	var __selectNewFile = function () {
+	var __selectNewFile = function() {
 		let el = $("msd-new-file");
 		let file = tools.input.getFile(el);
 		if (file) {
@@ -414,7 +411,7 @@ export function Msd() {
 		__refreshControls();
 	};
 
-	var __selectNewUrl = function () {
+	var __selectNewUrl = function() {
 		if ($("msd-new-url").value.length > 0) {
 			$("msd-new-file").value = "";
 		}

@@ -113,6 +113,7 @@ export function Keypad(__keys_parent, __sendKey, __apply_fixes) {
 	};
 
 	self.emitByCode = function(code, state, apply_fixes=true) {
+		console.log('emitByCode', code, state)
 		if (code in __merged) {
 			if (__fix_win_altgr && apply_fixes) {
 				if (!__fixWinAltgr(code, state)) {
@@ -128,6 +129,7 @@ export function Keypad(__keys_parent, __sendKey, __apply_fixes) {
 	};
 
 	var __fixMacCmd = function(code, state) {
+		console.log("fixMacCmd: ", code, state);
 		if ((code == "MetaLeft" || code == "MetaRight") && !state) {
 			for (code in __keys) {
 				if (__isActive(__keys[code][0])) {

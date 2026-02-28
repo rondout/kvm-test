@@ -11,7 +11,7 @@ app.use(express.static('web2'));
 
 // API 代理
 app.use('/', createProxyMiddleware({
-    target: 'https://192.168.8.185/',
+    target: 'https://192.168.3.185/',
     secure: false, // 如果目标服务器没有有效的SSL证书，可以禁用SSL验证
     changeOrigin: true,
     logLevel: 'debug', // 启用详细日志
@@ -117,18 +117,18 @@ app.use('/', createProxyMiddleware({
 // });
 // const initTermWs = () => {
 
-//     const ws = new WebSocket("wss://192.168.8.185/extras/webterm/ttyd/ws", {
+//     const ws = new WebSocket("wss://192.168.60.85/extras/webterm/ttyd/ws", {
 //         pingInterval: null, // 禁用心跳间隔
 //         pingTimeout: null, // 禁用心跳超时
 //         secureOptions: 0,
 //         headers: {
-//             'Host': '192.168.8.185',
+//             'Host': '192.168.60.85',
 //             'Connection': 'Upgrade',
 //             'Pragma': 'no-cache',
 //             'Cache-Control': 'no-cache',
 //             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
 //             'Upgrade': 'websocket',
-//             'Origin': 'https://192.168.8.185',
+//             'Origin': 'https://192.168.60.85',
 //             'Sec-WebSocket-Version': '13',
 //             'Accept-Encoding': 'gzip, deflate, br, zstd',
 //             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',
@@ -158,18 +158,18 @@ app.use('/', createProxyMiddleware({
 
 // const initWs = () => {
 
-//     const ws = new WebSocket("wss://192.168.8.185/api/ws", {
+//     const ws = new WebSocket("wss://192.168.60.85/api/ws", {
 //         pingInterval: null, // 禁用心跳间隔
 //         pingTimeout: null, // 禁用心跳超时
 //         secureOptions: 0,
 //         headers: {
-//             'Host': '192.168.8.185',
+//             'Host': '192.168.60.85',
 //             'Connection': 'Upgrade',
 //             'Pragma': 'no-cache',
 //             'Cache-Control': 'no-cache',
 //             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
 //             'Upgrade': 'websocket',
-//             'Origin': 'https://192.168.8.185',
+//             'Origin': 'https://192.168.60.85',
 //             'Sec-WebSocket-Version': '13',
 //             'Accept-Encoding': 'gzip, deflate, br, zstd',
 //             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',
@@ -197,19 +197,19 @@ app.use('/', createProxyMiddleware({
 // }
 
 // const initJanusWs = () => {
-//     const ws = new WebSocket("wss://192.168.8.185/janus/ws","janus-protocol", {
+//     const ws = new WebSocket("wss://192.168.60.85/janus/ws","janus-protocol", {
 //         pingInterval: null, // 禁用心跳间隔
 //         pingTimeout: null, // 禁用心跳超时
 //         secureOptions: 0,
 //         protocol: 'janus-protocol',
 //         headers: {
-//             'Host': '192.168.8.185',
+//             'Host': '192.168.60.85',
 //             'Connection': 'Upgrade',
 //             'Pragma': 'no-cache',
 //             'Cache-Control': 'no-cache',
 //             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36',
 //             'Upgrade': 'websocket',
-//             'Origin': 'https://192.168.8.185',
+//             'Origin': 'https://192.168.60.85',
 //             'Sec-WebSocket-Version': '13',
 //             'Accept-Encoding': 'gzip, deflate, br, zstd',
 //             'Accept-Language': 'en,zh;q=0.9,zh-CN;q=0.8',

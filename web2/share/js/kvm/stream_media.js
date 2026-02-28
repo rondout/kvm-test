@@ -64,6 +64,7 @@ export function MediaStreamer(__setActive, __setInactive, __setInfo, __organizeH
 	};
 
 	self.ensureStream = function(state) {
+		console.log("MediaStreamer.ensureStream", state);
 		__state = state;
 		__stop = false;
 		__ensureMedia(false);
@@ -200,6 +201,8 @@ export function MediaStreamer(__setActive, __setInactive, __setInfo, __organizeH
 	};
 
 	var __ensureDecoder = async (key) => {
+		console.log("__ensureDecoder");
+		
 		if (__codec === "") {
 			return false;
 		}

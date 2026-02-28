@@ -92,6 +92,7 @@ export function Keyboard(__recordWsEvent) {
 	};
 
 	self.emit = function(code, state) {
+		console.log('Editing key', { code, state })
 		__keypad.emitByCode(code, state);
 	};
 
@@ -126,6 +127,7 @@ export function Keyboard(__recordWsEvent) {
 	};
 
 	var __keyboardHandler = function(ev, state) {
+		console.log(state ? "KEY-DOWN" : "KEY_UP", ev.code);
 		ev.preventDefault();
 		__keypad.emitByKeyEvent(ev, state);
 	};

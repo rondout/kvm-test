@@ -89,6 +89,7 @@ export function Keypad(__el_keypad, __sendKey, __apply_fixes) {
 	};
 
 	self.emitByKeyEvent = function(ev, state) {
+		console.log("emitByKeyEvent", ev.code, state ? 'DOWN' : 'UP', ev.repeat);
 		if (ev.repeat) {
 			return;
 		}
@@ -110,13 +111,17 @@ export function Keypad(__el_keypad, __sendKey, __apply_fixes) {
 		if (code in __keys) {
 			let el_key = __keys[code][0];
 			__stopHoldTimer(el_key);
-
+			// console.log(1);
+			
+			
 			if (__fix_win_altgr && apply_fixes) {
 				if (!__fixWinAltgr(code, state)) {
 					return;
 				}
 			}
+			// console.log(2);
 			if (__fix_mac_cmd && apply_fixes) {
+				// console.log(3);
 				__fixMacCmd(code, state);
 			}
 
@@ -133,6 +138,7 @@ export function Keypad(__el_keypad, __sendKey, __apply_fixes) {
 	};
 
 	var __fixMacCmd = function(code, state) {
+		console.log("fixMacCmd: ", code, state);
 		if ((code === "MetaLeft" || code === "MetaRight") && !state) {
 			for (code in __keys) {
 				if (__isActive(__keys[code][0])) {

@@ -1,0 +1,39 @@
+body {
+    font-family: system-ui, Segoe UI, Roboto, Arial;
+    margin: 16px;
+}
+
+h1 {
+    margin: 8px 0 16px;
+}
+
+button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 让视频最大占 3/4 屏幕宽度，高度自动按16:9比例 */
+#remoteVideos video {
+    width: 80vw;               /* 占屏幕宽度的 75% */
+    height: calc(80vw * 9 / 16); /* 按16:9比例自动计算高度 */
+    max-width: 1920px;         /* 不超过源视频分辨率 */
+    max-height: 1080px;        /* 防止撑过源分辨率 */
+    background: #000;
+    border-radius: 10px;
+    object-fit: contain;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+/* 小屏设备自动缩放 */
+@media (max-width: 1400px) {
+    #remoteVideos video {
+        width: 90vw;
+        height: auto;
+    }
+}
