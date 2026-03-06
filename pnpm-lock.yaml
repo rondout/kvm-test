@@ -14,6 +14,9 @@ dependencies:
   express:
     specifier: ^4.21.1
     version: 4.21.1
+  express-history-api-fallback:
+    specifier: ^2.2.1
+    version: 2.2.1
   http-proxy-middleware:
     specifier: ^3.0.3
     version: 3.0.3
@@ -425,6 +428,10 @@ packages:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
     engines: {node: '>=6'}
     dev: true
+
+  /express-history-api-fallback@2.2.1:
+    resolution: {integrity: sha512-swxwm3aP8vrOOvlzOdZvHlSZtJGwHKaY94J6AkrAgCTmcbko3IRwbkhLv2wKV1WeZhjxX58aLMpP3atDBnKuZg==}
+    dev: false
 
   /express@4.21.1:
     resolution: {integrity: sha512-YSFlK1Ee0/GC8QaO91tHcDxJiE/X4FbpAyQWkxAvG6AXCuR65YzK8ua6D9hvi/TzUfZMpc+BwuM1IPw8fmQBiQ==}

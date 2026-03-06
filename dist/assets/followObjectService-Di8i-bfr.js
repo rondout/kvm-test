@@ -1,0 +1,1 @@
+import{G as t}from"./index-Bl-6J-CY.js";const l={updateFollowObjectState(e){return t.get("/api/bbs/followObject/updateFollowObjectState",{params:e})},getFollowedIssue(e){return t.get("/api/bbs/followObject/getFollowedIssue",{params:e})},getFollowedTopic(e){return t.get("/api/bbs/followObject/getFollowedTopic",{params:e})}};export{l as f};

@@ -1,0 +1,1 @@
+.base-modal{padding:0}.base-modal .ns-dialog__header{text-align:left;padding:16px 24px}.base-modal.without-title .ns-dialog__header{padding:0}.base-modal .modal-content{border-radius:4px;padding:24px;max-height:calc(100vh - 140px);overflow:auto}.base-modal .ns-dialog__body{border-radius:var(--border-radius);overflow:hidden}

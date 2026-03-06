@@ -1,0 +1,1 @@
+import{G as t}from"./index-CdW8QUs-.js";const a={getDynamicList(e){return t.get("/api/bbs/dynamic/getList",{params:e})},getLikesToMe(e){return t.get("/api/bbs/dynamic/getLikesToMe",{params:e})},getReplyToMe(e){return t.get("/api/bbs/dynamic/getReplyToMe",{params:e})},getFanToMe(e){return t.get("/api/bbs/dynamic/getFanToMe",{params:e})}};export{a as d};

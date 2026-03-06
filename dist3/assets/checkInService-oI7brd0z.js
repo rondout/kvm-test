@@ -1,0 +1,1 @@
+import{G as e}from"./index-B4IK3EFK.js";const n={getTodayCheckedIn(){return e.get("/api/bbs/checkIn/getTodayCheckedIn")},getAllCheckedIn(){return e.get("/api/bbs/checkIn/getAllCheckedIn")},getCertainMonthDays(t){return e.get("/api/bbs/checkIn/getCertainMonthDays",{params:t})},checkInCreate(){return e.post("/api/bbs/checkIn/create")}};export{n as c};

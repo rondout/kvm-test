@@ -1,0 +1,1 @@
+import{a as c,B as e,a4 as f}from"./index-B4IK3EFK.js";function d(t){const r=c(),s=e(()=>({...r.userInfo})),n=e(()=>r.userInfo?.id),u=e(()=>s.value?.isVip),o=e(()=>r.state.isManage),i=e(()=>r.state.isLogin);return f(()=>r.userInfo?.id,a=>{a&&t?.(r.userInfo)},{immediate:!0}),{currentUserInfo:s,isVip:u,isManage:o,currentUserId:n,isLogin:i}}export{d as u};
